@@ -41,4 +41,4 @@ app.delete("/ideas/:id", (req, res) => {
 
 // ✅ Server start
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(🚀 InstaPlanner backend running on port ${PORT}));
+app.listen(PORT, () => console.log('🚀 InstaPlanner backend running on port ${PORT}));
