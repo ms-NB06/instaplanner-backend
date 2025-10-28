@@ -1,58 +1,26 @@
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const app = express();
+
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// ✅ Connect to MongoDB
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("✅ Connected to MongoDB"))
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
-
-// ✅ Schema & Model
-const ideaSchema = new mongoose.Schema({
-  title: String,
-  status: { type: String, default: "planned" },
-});
-
-const Idea = mongoose.model("Idea", ideaSchema);
-
-// ✅ Route 1 – Test backend
+// Test route (you can edit or add more later)
 app.get("/", (req, res) => {
-  res.send("✨ InstaPlanner Backend + MongoDB is running successfully!");
+  res.send("🚀 InstaPlanner backend is live and running!");
 });
 
-// ✅ Route 2 – Get all ideas
-app.get("/ideas", async (req, res) => {
-  const ideas = await Idea.find();
-  res.json(ideas);
+// Example route for testing connection from frontend
+app.post("/api/test", (req, res) => {
+  const data = req.body;
+  res.json({ message: "Received successfully!", yourData: data });
 });
 
-// ✅ Route 3 – Add new idea
-app.post("/ideas", async (req, res) => {
-  const { title, status } = req.body;
-  if (!title) return res.status(400).json({ error: "Title is required" });
-
-  const newIdea = new Idea({ title, status });
-  await newIdea.save();
-  res.status(201).json(newIdea);
-});
-
-// ✅ Route 4 – Delete idea
-app.delete("/ideas/:id", async (req, res) => {
-  await Idea.findByIdAndDelete(req.params.id);
-  res.json({ message: "Idea deleted" });
-});
-
-// ✅ Start server
+// Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log('🚀 InstaPlanner backend running on port ${PORT}'));
+app.listen(PORT, () => {
+  console.log(✅ Server running on port ${PORT});
+});
+
